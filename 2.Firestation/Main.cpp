@@ -1,0 +1,35 @@
+#include "Firefighter.h"
+#include "FireChief.h"
+
+int main()
+{
+    // 소방차 생성.
+    Firetruck* truckOne = new Firetruck();
+    Firefighter* ronnie = new Firefighter("로니");
+    Firefighter* james = new Firefighter("제임스");
+
+    FireChief* harry = new FireChief("해리",ronnie);
+    truckOne->SetDriver(harry);
+    harry->Drive(truckOne, Point(200, 300));
+
+    /*harry->TellFirefiterToExtinguishFire(ronnie);*/
+    harry->ExtinguishFire();
+
+    //다형성
+    Firefighter* stillHarry = harry; //복사생성자 호출
+    stillHarry->ExtinguishFire();  
+
+    // 운전자 설정.
+    truckOne->SetDriver(ronnie);
+
+    // 소방차 이동.
+    ronnie->Drive(truckOne, Point(10, 5));
+
+    // 운전자 설정.
+    truckOne->SetDriver(james);
+
+    // 소방차 이동.
+    james->Drive(truckOne, Point(20, -3));
+
+    std::cin.get();
+}
