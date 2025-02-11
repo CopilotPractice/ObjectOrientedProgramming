@@ -1,49 +1,34 @@
 #pragma once
 
-#include "Firetruck.h"
-#include <string>
-#include <iostream>
+#include "FirefighterBase.h"
 
-class Firefighter
+// 소방관 클래스.
+// 소방관은 불을 끌 수 있음.
+// 소방관은 소방차를 운전할 수 있음.
+class Firefighter : public FirefighterBase
 {
 public:
 	Firefighter(const std::string& name)
-		:name(name)
+		: FirefighterBase(name)
 	{
 	}
 
-	/*Firefighter(Firefighter& other)
+	// 불끄기 메소드 (소방관의 임무).
+	virtual void ExtinguishFire() override
 	{
-
-	}*/
-	virtual~Firefighter() = default;// virtual 붙혀줘야 자식 클래스에서 소멸자를 호출했을 때,
-									// 자식 클래스에서 제대로 소멸자 호출
-
-	//불끄기
-	virtual void ExtinguishFire()
-	{
-		std::cout << name << " 소방관이 불을 끄고 있음!\n";
+		std::cout << name << " is putting out the fire!\n";
+		TrainHoseOnFire();
+		TurnOnHose();
 	}
 
-	//운전
-	void Drive(Firetruck* truckToDrive, const class Point& position)
+protected:
+	virtual void TurnOnHose()
 	{
-		//운전자 확인
-
-		if (truckToDrive->GetDriver() != this)
-		{
-			return;
-		}
-
-		//이동
-		truckToDrive->Drive(position);
+		std::cout << "The fire is going out.\n";
 	}
 
-	const std::string GetName() const { return name; }
-	void SetName(const std::string& name)
+	virtual void TrainHoseOnFire()
 	{
-		this->name = name;
+		std::cout << "Training the hose on the fire.\n";
 	}
-private:
-	std::string name;
 };
